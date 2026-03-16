@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 import { createClient } from '@supabase/supabase-js';
 
 // GitHub Actionsから渡される環境変数（URLと鍵）を使ってSupabaseに接続
-const supabaseUrl = process.env.SUPABASE_URL || 'https://chikrkepaqygcksmftgb.supabase.co';
-const supabaseKey = process.env.SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoaWtya2VwYXF5Z2Nrc21mdGdiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzYwODc1MSwiZXhwIjoyMDg5MTg0NzUxfQ.lZsXxyZvVH0Jhhi6SP3do9jHX_xdmOD0T4bSWPrb3Is';
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 test('サイトを開いて結果をSupabaseに保存する', async ({ page }) => {
