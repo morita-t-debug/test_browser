@@ -1,6 +1,11 @@
 name: Playwright Tests
 on:
-  workflow_dispath:
+push:
+    branches: [ main, master ]
+pull_request:
+    branches: [ main, master ]
+  
+workflow_dispath:
     inputs:
       target_url:
         description: 'URL to test'
@@ -17,7 +22,7 @@ jobs:
         run: npm ci
       - name: Run Playwright tests
         env:
-          # 👇 Next.jsから送られてきたURLを環境変数にセット
+        
           TARGET_URL: ${{ github.event.inputs.target_url }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
