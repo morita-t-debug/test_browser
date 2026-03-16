@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 
 // GitHub Actionsから渡される環境変数（URLと鍵）を使ってSupabaseに接続
 const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 test('サイトを開いて結果をSupabaseに保存する', async ({ page }) => {
