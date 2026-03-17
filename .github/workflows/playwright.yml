@@ -1,31 +1,32 @@
-name: Playwright Tests
 on:
-  push:
-    branches: [ main, master ]
   workflow_dispatch:
     inputs:
       target_url:
-        description: 'Test URL'
+        description: '調査対象URL'
         required: true
-        default: 'https://www.google.com'
+      browsers:
+        description: '実行ブラウザ (カンマ区切り: chromium,firefox,webkit)'
+        required: true
+        default: 'chromium'
+      take_screenshot:
+        description: 'スクリーンショットを撮るか (true/false)'
+        required: true
+        default: 'true'
 
 jobs:
   test:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      env:
-     
-        TARGET_URL: ${{ github.event.inputs.target_url || 'https://www.google.com' }}
-        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-      run: npx playwright test
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm install
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright Tests
+        run: npx playwright test
+        env:
+          TARGET_URL: ${{ github.event.inputs.target_url }}
+          CHOSEN_BROWSERS: ${{ github.event.inputs.browsers }}
+          TAKE_SCREENSHOT: ${{ github.event.inputs.take_screenshot }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
