@@ -22,8 +22,11 @@ jobs:
       - run: npm install
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+      - # playwright.yml の実行コマンドを修正
       - name: Run Playwright Tests
-        run: npx playwright test
+        # --retries=0 でリトライを禁止
+        # --config=/dev/null で余計なデバイス設定を無視
+        run: npx playwright test tests/save-result.spec.js --retries=0 --config=/dev/null
         env:
           TARGET_URL: ${{ github.event.inputs.target_url }}
           CHOSEN_BROWSERS: ${{ github.event.inputs.browsers }}
