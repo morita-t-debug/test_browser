@@ -5,7 +5,7 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANO
 
 test('マルチブラウザテスト', async () => {
   const targetUrl = process.env.TARGET_URL;
-  const browsers = process.env.ChOSEN_BROWSERS.split(',')
+  const browsers = process.env.CHOSEN_BROWSERS.split(',');
   const takeScreenshot = process.env.TAKE_SCREENSHOT === 'true'; 
   
 
@@ -25,7 +25,7 @@ test('マルチブラウザテスト', async () => {
     // 2. スクリーンショットの必要、不必要を確認後、必要であれば、フルページ撮影しBase64形式で取得
     let screenshotBase64 = null;
     if (takeScreenshot) {
-      const buffer = await page.screenshot({ fullpage: true });
+      const buffer = await page.screenshot({ fullPage: true });
       screenshotBase64 = buffer.toString('base64');
     }
     
