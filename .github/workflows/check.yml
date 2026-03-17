@@ -23,7 +23,7 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright Tests
-        run: npx playwright test tests/save-result.spec.js --retries=0 --config=/dev/null
+        run: npx playwright test tests/save-result.spec.js --project="" --retries=0
         env:
           TARGET_URL: ${{ github.event.inputs.target_url }}
           CHOSEN_BROWSERS: ${{ github.event.inputs.browsers }}
